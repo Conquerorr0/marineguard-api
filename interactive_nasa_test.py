@@ -7,8 +7,8 @@ import requests
 import json
 from datetime import datetime, timedelta
 
-# Heroku API URL
-API_URL = "https://nasa-probability-api-2b173d22b072.herokuapp.com"
+# Render.com API URL
+API_URL = "https://marineguard-api.onrender.com"
 
 # Türkiye'den 4 önemli konum
 TURKEY_LOCATIONS = {
@@ -236,7 +236,7 @@ def test_api(lat, lon, month, day, events, location_name):
     
     # Kullanıcıya sor: gerçek mi sentetik mi?
     print("\n[VERI MODU SECIMI]")
-    print("1. Gercek NASA verisi (YAVASTIR, Heroku'da calismayabilir)")
+    print("1. Gercek NASA verisi (YAVASTIR, Render Free tier'da calismayabilir)")
     print("2. Sentetik test verisi (HIZLIDIR, her zaman calisir)")
     mode_choice = input("\nHangi modu kullanmak istersiniz? (1/2) [Varsayilan: 2]: ").strip()
     
@@ -245,7 +245,7 @@ def test_api(lat, lon, month, day, events, location_name):
     if use_synthetic:
         print("[OK] Sentetik test verisi kullanilacak (hizli)")
     else:
-        print("[UYARI] Gercek NASA verisi kullanilacak (cok yavas, Heroku'da calismayabilir)")
+        print("[UYARI] Gercek NASA verisi kullanilacak (cok yavas, Render Free tier'da calismayabilir)")
     
     payload = {
         'lat': lat,
