@@ -1,0 +1,184 @@
+{
+  "info": {
+    "name": "NASA EarthData Probability API",
+    "description": "API collection for calculating ocean/atmosphere event probabilities",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["health"]
+        },
+        "description": "Check if API is running"
+      }
+    },
+    {
+      "name": "Get Available Events",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/events",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["events"]
+        },
+        "description": "Get all supported events and their details"
+      }
+    },
+    {
+      "name": "Calculate Probability - Basic",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"lat\": 40.0,\n  \"lon\": 29.0,\n  \"month\": 7,\n  \"day\": 15,\n  \"events\": [\"wind_high\", \"wave_high\"],\n  \"use_synthetic\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/calculate_probability",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["calculate_probability"]
+        },
+        "description": "Basic probability calculation for Istanbul"
+      }
+    },
+    {
+      "name": "Calculate Probability - Custom Thresholds",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"lat\": 36.9,\n  \"lon\": 30.7,\n  \"month\": 8,\n  \"day\": 1,\n  \"events\": [\"wind_high\", \"rain_high\", \"sst_high\"],\n  \"thresholds\": {\n    \"wind_high\": 15.0,\n    \"rain_high\": 15.0,\n    \"sst_high\": 28.0\n  },\n  \"use_synthetic\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/calculate_probability",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["calculate_probability"]
+        },
+        "description": "Probability calculation with custom thresholds for Antalya"
+      }
+    },
+    {
+      "name": "Calculate Probability - All Events",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"lat\": 38.4,\n  \"lon\": 27.1,\n  \"month\": 6,\n  \"day\": 20,\n  \"events\": [\n    \"wind_high\",\n    \"rain_high\",\n    \"wave_high\",\n    \"storm_high\",\n    \"fog_low\",\n    \"sst_high\",\n    \"current_strong\",\n    \"tide_high\",\n    \"ssha_high\"\n  ],\n  \"use_synthetic\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/calculate_probability",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["calculate_probability"]
+        },
+        "description": "Calculate probabilities for all 9 events for Izmir"
+      }
+    },
+    {
+      "name": "Error - Missing Fields",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"lat\": 40.0,\n  \"lon\": 29.0,\n  \"month\": 7\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/calculate_probability",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["calculate_probability"]
+        },
+        "description": "Test error handling - missing required fields"
+      }
+    },
+    {
+      "name": "Error - Invalid Latitude",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"lat\": 100.0,\n  \"lon\": 29.0,\n  \"month\": 7,\n  \"day\": 15,\n  \"events\": [\"wind_high\"],\n  \"use_synthetic\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/calculate_probability",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["calculate_probability"]
+        },
+        "description": "Test error handling - invalid latitude value"
+      }
+    },
+    {
+      "name": "Error - Invalid Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"lat\": 40.0,\n  \"lon\": 29.0,\n  \"month\": 7,\n  \"day\": 15,\n  \"events\": [\"wind_high\", \"tsunami\", \"earthquake\"],\n  \"use_synthetic\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/calculate_probability",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["calculate_probability"]
+        },
+        "description": "Test error handling - invalid event names"
+      }
+    }
+  ]
+}
+
