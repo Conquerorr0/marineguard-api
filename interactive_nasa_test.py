@@ -234,13 +234,26 @@ def test_api(lat, lon, month, day, events, location_name):
     print("\n[YUKLENIYOR] NASA verisi cekiliyor... Lutfen bekleyin...")
     print("              (Bu islem uzun surebilir, sabirli olun!)\n")
     
+    # Kullanıcıya sor: gerçek mi sentetik mi?
+    print("\n[VERI MODU SECIMI]")
+    print("1. Gercek NASA verisi (YAVASTIR, Heroku'da calismayabilir)")
+    print("2. Sentetik test verisi (HIZLIDIR, her zaman calisir)")
+    mode_choice = input("\nHangi modu kullanmak istersiniz? (1/2) [Varsayilan: 2]: ").strip()
+    
+    use_synthetic = mode_choice != '1'  # 1 dışında her şey sentetik
+    
+    if use_synthetic:
+        print("[OK] Sentetik test verisi kullanilacak (hizli)")
+    else:
+        print("[UYARI] Gercek NASA verisi kullanilacak (cok yavas, Heroku'da calismayabilir)")
+    
     payload = {
         'lat': lat,
         'lon': lon,
         'month': month,
         'day': day,
         'events': events,
-        'use_synthetic': False  # GERÇEK NASA VERİSİ
+        'use_synthetic': use_synthetic
     }
     
     try:
