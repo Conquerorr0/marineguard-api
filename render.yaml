@@ -9,8 +9,8 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.3
-      - key: FatihAltuntas
+      - key: EARTHDATA_USERNAME
         sync: false
-      - key: F@tih11031103
+      - key: EARTHDATA_PASSWORD
         sync: false
 
