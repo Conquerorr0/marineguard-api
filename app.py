@@ -24,6 +24,47 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+@app.route('/', methods=['GET'])
+def index():
+    """
+    API ana sayfa - hoş geldiniz mesajı ve endpoint listesi.
+    
+    Returns:
+        JSON response with API information
+    """
+    return jsonify({
+        'message': 'Welcome to NASA EarthData Probability API',
+        'version': '1.0.0',
+        'endpoints': {
+            'health': {
+                'method': 'GET',
+                'path': '/health',
+                'description': 'Health check endpoint'
+            },
+            'events': {
+                'method': 'GET',
+                'path': '/events',
+                'description': 'Get available events and their configurations'
+            },
+            'calculate_probability': {
+                'method': 'POST',
+                'path': '/calculate_probability',
+                'description': 'Calculate event probabilities for a location and date',
+                'example': {
+                    'lat': 40.0,
+                    'lon': 29.0,
+                    'month': 7,
+                    'day': 15,
+                    'events': ['wind_high', 'wave_high'],
+                    'use_synthetic': True
+                }
+            }
+        },
+        'documentation': 'See README_API.md for detailed documentation',
+        'status': 'online'
+    }), 200
+
+
 @app.route('/health', methods=['GET'])
 def health_check():
     """
